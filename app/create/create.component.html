@@ -1,0 +1,45 @@
+<h1>Add new user..</h1>
+<div class="row">
+    <div class="col-md-6 well">
+        <form [formGroup]="newUserForm" (ngSubmit)="createUser()">
+            <fieldset>
+                <legend>User</legend>
+                <div class="form-group" [class.has-error]="newUserForm.controls.name.touched && !newUserForm.controls.name.valid">
+                    <label class="controlLabel" for="name">Name</label>
+                    <input class="form-control" id="name" type="text" formControlName="name">
+                    <div class="errorClass" *ngIf="newUserForm.controls.name.touched && !newUserForm.controls.name.valid">Name is required</div>
+                </div>
+                <div class="form-group" [class.has-error]="newUserForm.controls.email.touched && !newUserForm.controls.email.valid">
+                    <label class="controlLabel" for="email">Email</label>
+                    <input class="form-control" id="email" type="text" formControlName="email">
+                    <div class="errorClass" *ngIf="newUserForm.controls.email.touched && !newUserForm.controls.email.valid">Email is required</div>
+                </div>
+                <div class="form-group">
+                    <label class="controlLabel" for="phone">Phone</label>
+                    <input class="form-control" id="phone" type="text" formControlName="phone">
+                </div>
+            </fieldset>
+            
+            <fieldset formGroupName="address">
+                <legend>Address</legend>
+                <div class="form-group">
+                    <label class="controlLabel" for="street">Street</label>
+                    <input class="form-control" id="street" type="text" formControlName="street">
+                </div>
+                <div class="form-group">
+                    <label class="controlLabel" for="suite">Suite</label>
+                    <input class="form-control" id="suite" type="text" formControlName="suite">
+                </div>
+                <div class="form-group">
+                    <label class="controlLabel" for="city">City</label>
+                    <input class="form-control" id="city" type="text" formControlName="city">
+                </div>
+                <div class="form-group">
+                    <label class="controlLabel" for="zipcode">Zipcode</label>
+                    <input class="form-control" id="zipcode" type="text" formControlName="zipcode">
+                </div>
+            </fieldset>
+            <button class="btn btn-primary" [disabled]="!newUserForm.valid">Create</button>
+        </form>
+    </div>
+</div>

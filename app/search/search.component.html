@@ -1,0 +1,44 @@
+<h1>Search User..</h1>
+<div class="row">
+<form [formGroup]="searchForm" (ngSubmit)="searchUser()">
+    <div class="col-md-6">
+        <select class="form-control" #selectedUser (change)="resetError()">
+            <option value="1">
+                User ID
+            </option>
+            <option value="2">
+                User Name
+            </option>
+        </select>
+    </div>
+    <div class="col-md-4">
+            <input class="form-control" id="name" type="text" formControlName="searchValue"
+            [class.error]="!searchForm.controls.searchValue.valid"
+            >
+            <div class="errorClass" *ngIf="!searchForm.controls.searchValue.valid">
+                Search criteria is required.
+            </div>
+    </div>
+    <div class="col-md-2">
+            <button class="btn btn-primary">Search</button>
+    </div>
+</form>
+</div>
+<p>
+</p>
+<div class="user-details" *ngIf="userDetails.length > 0">
+    <table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr *ngFor="#user of userDetails">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td><a href="#"><i class="glyphicon glyphicon-edit"></i></a></td>
+        <td><i class="glyphicon glyphicon-remove"></i></td>
+    </tr>
+</table>
+</div>
