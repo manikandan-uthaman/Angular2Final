@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators, NgModel, FORM_DIRECTIVES} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, FORM_DIRECTIVES} from '@angular/forms';
 
 import {UserService} from '../shared/user.services'
 @Component({
     selector: 'search',
     templateUrl: '/app/search/search.component.html',
     providers: [UserService],
-    directives: [NgModel, FORM_DIRECTIVES]
+    directives: [FORM_DIRECTIVES]
 })
 export class SearchComponent{
     searchForm;
@@ -20,7 +20,7 @@ export class SearchComponent{
     }
 
     resetError(){
-            // this.searchForm.find('searchValue').value = '';
+            this.searchValue ='';
             this.searchForm.find('searchValue').setErrors(null);        
     }
     searchUser(){

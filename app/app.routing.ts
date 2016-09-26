@@ -7,8 +7,9 @@ import {TestComponent} from './search/test.component';
 import {NotFoundComponent} from './shared/not-found.component';
 
 export const routing = RouterModule.forRoot([
-    {path: '', component: TestComponent},
-    // {path: '', component: HomeComponent},
+    // {path: '', component: TestComponent},
+    {path: '', component: HomeComponent},
+    {path: 'create/:id', component: CreateComponent},
     {path: 'create', component: CreateComponent},
     {path: 'search', component: SearchComponent},
     {path: '**', component: NotFoundComponent}

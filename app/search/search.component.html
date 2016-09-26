@@ -14,6 +14,7 @@
     <div class="col-md-4">
             <input class="form-control" id="name" type="text" formControlName="searchValue"
             [class.error]="!searchForm.controls.searchValue.valid"
+            [(ngModel)]="searchValue"
             >
             <div class="errorClass" *ngIf="!searchForm.controls.searchValue.valid">
                 Search criteria is required.
@@ -37,7 +38,7 @@
     <tr *ngFor="let user of userDetails">
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
-        <td><a href="#"><i class="glyphicon glyphicon-edit"></i></a></td>
+        <td><a [routerLink]="['../create', user.id]"><i class="glyphicon glyphicon-edit"></i></a></td>
         <td><i class="glyphicon glyphicon-remove"></i></td>
     </tr>
 </table>
