@@ -34,7 +34,7 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <tr *ngFor="#user of userDetails">
+    <tr *ngFor="let user of userDetails">
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td><a href="#"><i class="glyphicon glyphicon-edit"></i></a></td>
