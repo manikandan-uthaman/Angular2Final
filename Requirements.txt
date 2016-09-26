@@ -1,0 +1,15 @@
+
+110
+77% must be present
+90 days (60 + 30)
+casual 30
+annual 60
+
+id 
+name 
+address 
+remarks
+Casual availed?
+From 
+To
+Annual leave remaining
