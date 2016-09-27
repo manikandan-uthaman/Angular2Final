@@ -5,3 +5,7 @@
 .error{
     border-color: red;
 }
+
+.control-span{
+    text-align: left !important;
+}

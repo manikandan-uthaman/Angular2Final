@@ -10,7 +10,7 @@ export class UserService{
 
     }
 
-    getUsers(userId){
+    getUsers(userId?){
         var url = 'https://jsonplaceholder.typicode.com/users';
         if(userId)
             url = url + '/' + userId

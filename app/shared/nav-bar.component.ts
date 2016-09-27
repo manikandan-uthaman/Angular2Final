@@ -11,6 +11,6 @@ export class NavbarComponent{
     }
 
     isActive(url){
-        return this._router.isActive(url, true);
+        return this._router.isActive(url, false);
     }
 }

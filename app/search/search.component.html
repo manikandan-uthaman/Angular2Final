@@ -32,14 +32,16 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Edit Details</th>
+        <th>Delete User</th>
+        <th>Edit Leave</th>
     </tr>
     <tr *ngFor="let user of userDetails">
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
-        <td><a [routerLink]="['../create', user.id]"><i class="glyphicon glyphicon-edit"></i></a></td>
+        <td><a [routerLink]="['../create', user.id]"><i class="glyphicon glyphicon-pencil"></i></a></td>
         <td><i class="glyphicon glyphicon-remove"></i></td>
+        <td><a [routerLink]="['../leave', user.id]"><i class="glyphicon glyphicon-edit"></i></a></td>
     </tr>
 </table>
 </div>
