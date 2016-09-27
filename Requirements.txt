@@ -20,3 +20,10 @@ http://www.primefaces.org/primeng/#/calendar
 https://www.npmjs.com/package/ng2-datepicker
 https://nkalinov.github.io/ng2-datetime/
 http://www.angulartypescript.com/angular-2-datepicker/
+
+
+Pending work:
+
+---Loading icon
+---Service error handling
+---Date picker

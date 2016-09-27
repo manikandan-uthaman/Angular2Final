@@ -1,20 +1,33 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms'
+import {DateFormatter} from '@angular/common/src/facade/intl';
 
 import {UserService} from '../shared/user.services'
 import {LeaveDetails} from './leave-details'
+import {DateValidatorComponent} from './date-validator.component'
 
 @Component({
     selector: 'leave',
     templateUrl: '/app/leave/leave.component.html',
-    providers: [UserService]
+    providers: [UserService],
+    directives: [FORM_DIRECTIVES]
 })
 export class LeaveComponent implements OnInit, OnDestroy{
     id;
     isCasual;
     subscribe;
+    leaveForm;
+    fromDate;
+    toDate;
+    today = DateFormatter.format(new Date, 'in', 'dd/MM/yyyy');
     leaveDetails = new LeaveDetails();
-    constructor(private _route: ActivatedRoute, private _userServices: UserService){
+    constructor(private _route: ActivatedRoute, private _userServices: UserService, fb: FormBuilder){
+        this.leaveForm = fb.group({
+            fromDate: ['', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])],
+            toDate: ['', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])],
+        })
+        // this.fromDate = new FormControl('', Validators.compose([Validators.required]))
         this.subscribe = this._route.params.subscribe(params => this.id = params["id"]);
     }
 
@@ -34,5 +47,9 @@ export class LeaveComponent implements OnInit, OnDestroy{
 
     ngOnDestroy(){
         this.subscribe.unsubscribe();
+    }
+
+    onSubmit(){
+        console.log(this.leaveForm.controls.fromDate.errors);
     }
 }

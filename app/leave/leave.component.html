@@ -1,6 +1,8 @@
 <h1>Leave Details</h1>
 
-<form class="form-horizontal">
+{{ today }}
+
+<form class="form-horizontal" [formGroup]="leaveForm">
     <div class="form-group">
       <label class="col-lg-2 control-label">User ID</label>
       <div class="col-lg-10">
@@ -18,13 +20,13 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="C" [(ngModel)]="leaveDetails.leaveCategory">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="C">
             Casual Leave
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="A" [(ngModel)]="leaveDetails.leaveCategory">
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="A">
             Annual Leave
           </label>
         </div>
@@ -34,14 +36,24 @@
     <div class="form-group">
       <label for="fromDate" class="col-lg-2 control-label">From</label>
       <div class="col-lg-2">
-        <input type="text" class="form-control" id="fromDate" placeholder="MM/DD/YYYY" maxlength="10">
+        <input type="text" class="form-control" id="fromDate" placeholder="MM/DD/YYYY" maxlength="10"
+        formControlName="fromDate"
+        >
+        <div *ngIf="leaveForm.controls.fromDate.touched && leaveForm.controls.fromDate.errors" class="errorClass">
+          <div *ngIf="leaveForm.controls.fromDate.errors.required">From Date is required</div>
+          <div *ngIf="leaveForm.controls.fromDate.errors.invalidDate">From Date is invalid</div>
+        </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="toDate" class="col-lg-2 control-label">To</label>
       <div class="col-lg-2">
-        <input type="text" class="form-control" id="toDate" placeholder="MM/DD/YYYY" maxlength="10">
+        <input type="text" class="form-control" id="toDate" placeholder="MM/DD/YYYY" maxlength="10" formControlName="toDate">
+        <div *ngIf="leaveForm.controls.toDate.touched && leaveForm.controls.toDate.errors" class="errorClass">
+          <div *ngIf="leaveForm.controls.toDate.errors.required">To Date is required</div>
+          <div *ngIf="leaveForm.controls.toDate.errors.invalidDate">To Date is invalid</div>
+        </div>
       </div>
     </div>
 
@@ -56,7 +68,7 @@
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
       </div>
     </div>
 </form>
