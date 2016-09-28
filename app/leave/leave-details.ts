@@ -6,4 +6,5 @@ export class LeaveDetails{
     fromDate: string;
     toDate: string;
     remarks: string;
+    annualLeaveRemaining: number;
 }

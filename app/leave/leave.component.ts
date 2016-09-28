@@ -15,17 +15,17 @@ import {DateValidatorComponent} from './date-validator.component'
 })
 export class LeaveComponent implements OnInit, OnDestroy{
     id;
-    isCasual;
     subscribe;
     leaveForm;
     fromDate;
     toDate;
-    today = DateFormatter.format(new Date, 'in', 'dd/MM/yyyy');
+    today;
     leaveDetails = new LeaveDetails();
     constructor(private _route: ActivatedRoute, private _userServices: UserService, fb: FormBuilder){
-        this.leaveForm = fb.group({
-            fromDate: ['', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])],
-            toDate: ['', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])],
+        this.leaveForm = new FormGroup({
+            leaveCategory: new FormControl('C'),
+            fromDate: new FormControl('', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])),
+            toDate: new FormControl('', Validators.compose([Validators.required, DateValidatorComponent.invalidDate]))
         })
         // this.fromDate = new FormControl('', Validators.compose([Validators.required]))
         this.subscribe = this._route.params.subscribe(params => this.id = params["id"]);
@@ -37,11 +37,11 @@ export class LeaveComponent implements OnInit, OnDestroy{
         this._userServices.getUsers(this.id).subscribe(result => {
             this.leaveDetails.userID = result.id;
             this.leaveDetails.userName = result.name;
-            this.leaveDetails.leaveCategory = 'A';
+            this.leaveDetails.leaveCategory = (result && result.leaveCategory)?result.leaveCategory:'C';
             this.leaveDetails.fromDate = "09/01/2016";
-            this.leaveDetails.toDate = "30/01/2016";
+            this.leaveDetails.toDate = "10/01/2016";
             this.leaveDetails.remarks = "Casual";
-            this.isCasual = (this.leaveDetails.leaveCategory == 'C')
+            this.leaveDetails.annualLeaveRemaining = 15;
         })
     }
 
@@ -49,7 +49,30 @@ export class LeaveComponent implements OnInit, OnDestroy{
         this.subscribe.unsubscribe();
     }
 
+    setToDate(){
+        var from = new Date(this.leaveDetails.fromDate);
+        if(!this.leaveForm.find('fromDate').errors){
+            this.leaveDetails.toDate="10/01/2016";
+        }
+    }
     onSubmit(){
-        console.log(this.leaveForm.controls.fromDate.errors);
+        var from = new Date(this.leaveDetails.fromDate);
+        var to = new Date(this.leaveDetails.toDate);
+        if(to < from){
+            this.leaveForm.find('toDate').setErrors({invalidDate: true});
+            return;
+        }
+        if(this.leaveDetails.leaveCategory == 'A'){
+        var fromTime = new Date(this.leaveDetails.fromDate).getTime();
+        var toTime = new Date(this.leaveDetails.toDate).getTime();
+        var leavePeriod = (toTime - fromTime)/(1000*60*60*24); 
+
+        if((leavePeriod > this.leaveDetails.annualLeaveRemaining)){
+            this.leaveForm.find('toDate').setErrors({insuffecientDays: true});
+        }
+
+        }
+
+        console.log(this.leaveForm);
     }
 }

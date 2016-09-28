@@ -27,3 +27,4 @@ Pending work:
 ---Loading icon
 ---Service error handling
 ---Date picker
+---Pagination
