@@ -9,3 +9,35 @@
 .control-span{
     text-align: left !important;
 }
+
+.hider
+{
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    width:2000px;
+    height:2000px;
+    margin-top: -800px; /*set to a negative number 1/2 of your height*/
+    margin-left: -500px; /*set to a negative number 1/2 of your width*/
+    /*
+    z- index must be lower than pop up box
+    */
+    z-index: 99;
+    background-color:Black;
+    opacity:0.6;
+}
+
+.popup_box  
+{
+
+position:absolute;
+    top: 50%;
+    left: 50%;
+    width:45px;
+    height:45px;
+    margin-top: -5em; /*set to a negative number 1/2 of your height*/
+    margin-left: -5em; /*set to a negative number 1/2 of your width*/
+    background-color:#BEB3B3;
+    z-index:100;
+
+}

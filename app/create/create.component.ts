@@ -15,6 +15,7 @@ export class CreateComponent implements OnInit, OnDestroy{
     title;
     id;
     subscribe;
+    isLoading;
     user = new User();
     constructor(fb: FormBuilder, private _route: ActivatedRoute, private _userService: UserService, private _router: Router){
         this.newUserForm = new FormGroup({
@@ -36,8 +37,11 @@ export class CreateComponent implements OnInit, OnDestroy{
         if(!this.id){
             return;
         }
-
-        this._userService.getUsers(this.id).subscribe(res => this.user = res);
+        this.isLoading = true;
+        this._userService.getUsers(this.id).subscribe(res => {
+            this.isLoading = false;
+            this.user = res
+        });
     }
 
     ngOnDestroy(){
@@ -47,13 +51,17 @@ export class CreateComponent implements OnInit, OnDestroy{
     createUser(){
         console.log(this.newUserForm);
         if(this.id){
+            this.isLoading = true;
             this._userService.updateUser(this.newUserForm.value).subscribe(res => {
+                this.isLoading = false;
                 alert("User updated successfully");
                 this._router.navigate(['search']);
             })
             return;
         }else{
+            this.isLoading = true;
             this._userService.saveUser(this.newUserForm.value).subscribe(res =>{
+                this.isLoading = false;
                 alert("User created successfully");
                 this._router.navigate(['']);
             });

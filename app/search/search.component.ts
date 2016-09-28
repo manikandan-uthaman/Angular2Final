@@ -12,6 +12,7 @@ export class SearchComponent{
     searchForm;
     userDetails=[];
     searchValue;
+    isLoading;
     constructor(fb: FormBuilder, private _userService: UserService){
         this.searchValue = '';
         this.searchForm = new FormGroup({
@@ -29,7 +30,10 @@ export class SearchComponent{
             console.log(this.searchForm);
             return;
         }
-
-        this._userService.getUsers().subscribe( result => this.userDetails = result);
+        this.isLoading = true;
+        this._userService.getUsers().subscribe( result => {
+            this.isLoading = false
+            this.userDetails = result   
+        });
     }
 }

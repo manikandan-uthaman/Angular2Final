@@ -2,7 +2,7 @@
 export class LeaveDetails{
     userID: string;
     userName: string;
-    leaveCategory: string;
+    leaveCategory = 'C';
     fromDate: string;
     toDate: string;
     remarks: string;
