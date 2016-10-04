@@ -1,6 +1,7 @@
 <div class="hider" *ngIf="isLoading"></div>
 <div class="popup_box" *ngIf="isLoading">
-    <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <img src="../../assets/images/ajax-loader.gif" alt="">
+    <span class="message">Please wait while we are loading..</span>
 </div>
 <h1>{{ title }}</h1>
 <div class="row">
@@ -16,7 +17,8 @@
                 <div class="form-group" [class.has-error]="newUserForm.controls.email.touched && !newUserForm.controls.email.valid">
                     <label class="controlLabel" for="email">Email</label>
                     <input class="form-control" id="email" type="text" formControlName="email" [(ngModel)]="user.email">
-                    <div class="errorClass" *ngIf="newUserForm.controls.email.touched && !newUserForm.controls.email.valid">Email is required</div>
+                    <div class="errorClass" *ngIf="newUserForm.controls.email.touched && newUserForm.controls.email.errors && newUserForm.controls.email.errors.required">Email is required</div>
+                    <div class="errorClass" *ngIf="newUserForm.controls.email.touched && newUserForm.controls.email.errors && newUserForm.controls.email.errors.invalidEmail">Email is invalid</div>
                 </div>
                 <div class="form-group">
                     <label class="controlLabel" for="phone">Phone</label>

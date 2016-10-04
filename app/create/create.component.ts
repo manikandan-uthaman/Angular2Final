@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router'
 
 import {User} from './user';
 import {UserService} from '../shared/user.services';
+import {FormValidator} from './validator.component'
 
 @Component({
     selector: 'create-user',
@@ -20,7 +21,7 @@ export class CreateComponent implements OnInit, OnDestroy{
     constructor(fb: FormBuilder, private _route: ActivatedRoute, private _userService: UserService, private _router: Router){
         this.newUserForm = new FormGroup({
             name: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.required),
+            email: new FormControl('', Validators.compose([Validators.required, FormValidator.emailValidation])),
             phone: new FormControl(''),
             address: fb.group({
                 street: new FormControl(''),
@@ -47,7 +48,7 @@ export class CreateComponent implements OnInit, OnDestroy{
     ngOnDestroy(){
         this.subscribe.unsubscribe();
     }
-    
+
     createUser(){
         console.log(this.newUserForm);
         if(this.id){
