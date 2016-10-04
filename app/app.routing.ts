@@ -6,13 +6,16 @@ import {SearchComponent} from './search/search.component';
 import {LeaveComponent} from './leave/leave.component';
 import {TestComponent} from './search/test.component';
 import {NotFoundComponent} from './shared/not-found.component';
+import {ConfirmDeactivateComponent} from './confirm-deactivate.component';
+import {LoginComponent} from './login/login.component'
 
 export const routing = RouterModule.forRoot([
     // {path: '', component: TestComponent},
     {path: '', component: HomeComponent},
-    {path: 'create/:id', component: CreateComponent},
-    {path: 'create', component: CreateComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'create/:id', component: CreateComponent, canDeactivate: [ConfirmDeactivateComponent]},
+    {path: 'create', component: CreateComponent, canDeactivate: [ConfirmDeactivateComponent]},
     {path: 'search', component: SearchComponent},
-    {path: 'leave/:id', component: LeaveComponent},
+    {path: 'leave/:id', component: LeaveComponent, canDeactivate: [ConfirmDeactivateComponent]},
     {path: '**', component: NotFoundComponent}
 ]);

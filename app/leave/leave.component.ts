@@ -6,6 +6,8 @@ import {DateFormatter} from '@angular/common/src/facade/intl';
 import {UserService} from '../shared/user.services'
 import {LeaveDetails} from './leave-details'
 import {DateValidatorComponent} from './date-validator.component'
+import {FormComponent} from '../confirm-deactivate.component'
+import {AuthService} from '../login/auth-user.component'
 
 @Component({
     selector: 'leave',
@@ -13,8 +15,9 @@ import {DateValidatorComponent} from './date-validator.component'
     providers: [UserService],
     directives: [FORM_DIRECTIVES]
 })
-export class LeaveComponent implements OnInit, OnDestroy{
+export class LeaveComponent implements OnInit, OnDestroy, FormComponent{
     isLoading;
+    isError;
     id;
     subscribe;
     leaveForm;
@@ -25,19 +28,22 @@ export class LeaveComponent implements OnInit, OnDestroy{
     leaveCategory;
     temp;
     leaveDetails = new LeaveDetails();
-    constructor(private _route: ActivatedRoute, private _userServices: UserService, fb: FormBuilder, private _router: Router){
-
+    constructor(private _route: ActivatedRoute, private _userServices: UserService, fb: FormBuilder, private _router: Router, private _auth: AuthService){
         this.today = (new Date("02/29/2016").getTime() + (1*24*60*60*1000));
         this.temp = new Date(this.today);
         this.leaveForm = new FormGroup({
             leaveCategory: new FormControl('C'),
             fromDate: new FormControl('', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])),
-            toDate: new FormControl('', Validators.compose([Validators.required, DateValidatorComponent.invalidDate]))
+            toDate: new FormControl('', Validators.compose([Validators.required, DateValidatorComponent.invalidDate])),
+            remarks: new FormControl('')
         })
         this.subscribe = this._route.params.subscribe(params => this.id = params["id"]);
     }
 
     ngOnInit(){
+        if(!this._auth.getValue())
+            this._router.navigate(['login']);
+            
         if(!this.id)
             return;
         this.isLoading = true;
@@ -57,7 +63,12 @@ export class LeaveComponent implements OnInit, OnDestroy{
                 this.leaveDetails.remarks = "Casual";
                 this.leaveDetails.annualLeaveRemaining = 15;
                 this.isLoading = false;
-            
+                this.isError = false;
+        },
+        error => {
+            this.isError = true;
+            this.isLoading = false;
+            console.error("Service Error : " + error)
         })
     }
 
@@ -92,12 +103,28 @@ export class LeaveComponent implements OnInit, OnDestroy{
         if(this.isNewLeave){
             this._userServices.saveUser(this.leaveForm.value).subscribe(result => {
                 this.isLoading = false;
+                this.isError = false;
+                this.leaveForm.reset();
+                alert("Leave Details added successfully");
                 this._router.navigate(['']);
+            },
+            error => {
+                this.isError = true;
+                this.isLoading = false;
+                console.error("Service Error : " + error)
             });           
         }else{
             this._userServices.updateUser(this.leaveForm.value).subscribe(result => {
                 this.isLoading = false;
+                this.isError = false;
+                this.leaveForm.reset();
+                alert("Leave Details updated successfully");
                 this._router.navigate(['']);
+            },
+            error => {
+                this.isError = true;
+                this.isLoading = false;
+                console.error("Service Error : " + error)
             });
         }
         console.log(this.leaveForm);
@@ -105,10 +132,9 @@ export class LeaveComponent implements OnInit, OnDestroy{
 
     addnewLeave(){
         this.isNewLeave = true;
-        var name = this.leaveDetails.userName;
-        this.leaveDetails = new LeaveDetails();
-        this.leaveDetails.userID = this.id;
-        this.leaveDetails.userName = name;
+        this.leaveDetails.fromDate = '';
+        this.leaveDetails.toDate = '';
+        this.leaveDetails.remarks = '';
     }
 
     onFromChange(){
@@ -119,5 +145,9 @@ export class LeaveComponent implements OnInit, OnDestroy{
             var temp = new Date((new Date(this.leaveDetails.fromDate).getTime() + (30*24*60*60*1000)));
             this.leaveDetails.toDate = DateFormatter.format(temp, 'in', 'MM/dd/yyyy');
         }
+    }
+
+    hasUnsavedChanges(){
+        return this.leaveForm.dirty;
     }
 }

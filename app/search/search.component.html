@@ -1,7 +1,9 @@
 <div class="hider" *ngIf="isLoading"></div>
 <div class="popup_box" *ngIf="isLoading">
-    <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <img src="../../assets/images/ajax-loader.gif" alt="">
+    <span class="message">Please wait while we are loading.</span>
 </div>
+<div class="alert alert-danger" *ngIf="isError">Service Error Occured. Please try again..</div>
 <h1>Search User..</h1>
 <div class="row">
 <form [formGroup]="searchForm" (ngSubmit)="searchUser()">
