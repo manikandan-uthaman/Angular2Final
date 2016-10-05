@@ -18,12 +18,12 @@ export class UserService{
     }
 
     saveUser(request){
-        return this._http.post('https://jsonplaeholder.typicode.com/posts', JSON.stringify(request))
+        return this._http.post('https://jsonplaceholder.typicode.com/posts', JSON.stringify(request))
                             .map(res => res.json())
     }
 
     updateUser(request){
-        return this._http.put('https://jsonplacholder.typicode.com/posts/1', JSON.stringify(request))
+        return this._http.put('https://jsonplaceholder.typicode.com/posts/1', JSON.stringify(request))
                             .map(res => res.json())
     }
 }

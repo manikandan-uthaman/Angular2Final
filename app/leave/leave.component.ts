@@ -41,8 +41,8 @@ export class LeaveComponent implements OnInit, OnDestroy, FormComponent{
     }
 
     ngOnInit(){
-        if(!this._auth.getValue())
-            this._router.navigate(['login']);
+        // if(!this._auth.getValue())
+        //     this._router.navigate(['login']);
             
         if(!this.id)
             return;

@@ -31,3 +31,18 @@ Pending work:
 ---Date addition - Done
 ---Dirty tracking - Done
 ---Login Logout
+
+
+
+References for chart:
+https://scotch.io/tutorials/interactive-angular-2-charts-with-zingchart
+https://github.com/valor-software/ng2-charts
+https://www.sitepoint.com/chart-component-angular2-fusioncharts/
+http://mean.expert/2016/05/02/angular-2-chart-component/
+https://blog.zingchart.com/2016/08/18/angular-2-charts-with-rc5-2/
+
+http://stackoverflow.com/questions/35552015/chart-is-not-working-in-angular2
+https://vaadin.com/elements/-/element/vaadin-bar-chart
+
+----------------
+https://vaadin.com/docs/-/part/elements/angular2-polymer/tutorial-index.html

@@ -36,8 +36,8 @@ export class CreateComponent implements OnInit, OnDestroy, FormComponent{
     }
 
     ngOnInit(){
-        if(!this._auth.getValue())
-            this._router.navigate(['login']);
+        // if(!this._auth.getValue())
+        //     this._router.navigate(['login']);
         this.subscribe = this._route.params.subscribe(params => this.id=params["id"]);
         this.title = (!this.id) ? "Add new user.." : "Edit user";
         if(!this.id){

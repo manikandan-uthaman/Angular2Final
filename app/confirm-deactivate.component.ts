@@ -8,7 +8,7 @@ export class ConfirmDeactivateComponent implements CanDeactivate<FormComponent>{
     canDeactivate(target: FormComponent){
         console.log(target.hasUnsavedChanges());
         if(target.hasUnsavedChanges()){
-            return confirm("Unsaved changes. Do you want to proceed?");
+            return confirm("Page has unsaved changes. Do you want to proceed?");
         }
         return true;
     }

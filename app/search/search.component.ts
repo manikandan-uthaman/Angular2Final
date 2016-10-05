@@ -25,8 +25,8 @@ export class SearchComponent implements OnInit{
 
     ngOnInit(){
         console.log("Auth service response : " + this._auth.getValue());
-        if(!this._auth.getValue())
-            this._router.navigate(['login']);
+        // if(!this._auth.getValue())
+        //     this._router.navigate(['login']);
     }
 
     resetError(){

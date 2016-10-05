@@ -24,6 +24,8 @@ export class LoginComponent{
         console.log("Password : " + this.loginForm.find('password').value);
         if((this.loginForm.find('username').value != '') && (this.loginForm.find('password').value != '')){
             this._auth.setValue(true);
+            // console.log(window.location.host);
+            // window.location.replace(window.location.host + "/search");
             this._router.navigate(['']);
         }else{
             this.isRequired = true;
