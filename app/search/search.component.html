@@ -50,4 +50,5 @@
         <td><a [routerLink]="['../leave', user.id]"><i class="glyphicon glyphicon-edit"></i></a></td>
     </tr>
 </table>
+<pagination [items]="userDetails" [resultsCount]="resultCount" [currentPage]="currentPage" (page-changed)="onPageChanged($event)"></pagination>
 </div>

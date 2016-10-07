@@ -51,17 +51,20 @@ export class LeaveComponent implements OnInit, OnDestroy, FormComponent{
                 this.leaveDetails.userID = result.id;
                 this.leaveDetails.userName = result.name;
                 this.leaveDetails.leaveCategory = (result && result.leaveCategory)?result.leaveCategory:'C';
+                this.leaveDetails.fromDate = "09/01/2016";
+                this.leaveDetails.toDate = "10/01/2016";
+                this.leaveDetails.remarks = "Casual";
+                this.leaveDetails.annualLeaveRemaining = 15;
                 if(this.id == '2')
                     result.leaveCategory = 'E';
                 this.leaveCategory = result.leaveCategory;
                 if(result.leaveCategory == 'E')
                 {
+                    this.leaveDetails.fromDate = "";
+                    this.leaveDetails.toDate = "";
+                    this.leaveDetails.remarks = "";
                     this.isNewLeave = true;
                 }
-                this.leaveDetails.fromDate = "09/01/2016";
-                this.leaveDetails.toDate = "10/01/2016";
-                this.leaveDetails.remarks = "Casual";
-                this.leaveDetails.annualLeaveRemaining = 15;
                 this.isLoading = false;
                 this.isError = false;
         },
