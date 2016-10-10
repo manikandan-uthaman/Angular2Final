@@ -26,4 +26,8 @@ export class UserService{
         return this._http.put('https://jsonplaceholder.typicode.com/posts/1', JSON.stringify(request))
                             .map(res => res.json())
     }
+
+    deleteUser(id){
+        return this._http.delete('https://jsonplaceholder.typicode.com/users/'+ id).map(res => res.json())
+    }
 }

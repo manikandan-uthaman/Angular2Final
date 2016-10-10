@@ -6,15 +6,15 @@ import {OnChanges} from '@angular/core';
     template: `
     <nav>
         <ul class="pagination">
-            <li [class.disabled]="currentPage == 1" class="pagination_link">
+            <li [class.disabled]="currentPage == 1" class="cursorHand">
                 <a (click)="previous()" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li [class.active]="currentPage == page" class="pagination_link" *ngFor="#page of pages" (click)="changePage(page)">
+            <li [class.active]="currentPage == page" class="cursorHand" *ngFor="#page of pages" (click)="changePage(page)">
                 <a>{{ page }}</a>
             </li>
-            <li [class.disabled]="currentPage == pages.length" class="pagination_link">
+            <li [class.disabled]="currentPage == pages.length" class="cursorHand">
                 <a (click)="next()" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 </a>

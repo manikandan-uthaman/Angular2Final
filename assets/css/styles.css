@@ -56,6 +56,6 @@ position:absolute;
     font-size: 16px; 
 }
 
- .pagination_link{
+ .cursorHand{
      cursor: pointer;
  }

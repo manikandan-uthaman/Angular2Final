@@ -46,7 +46,7 @@
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td><a [routerLink]="['../create', user.id]"><i class="glyphicon glyphicon-pencil"></i></a></td>
-        <td><i class="glyphicon glyphicon-remove"></i></td>
+        <td><i class="glyphicon glyphicon-remove cursorHand" (click)="deleteUser(user)"></i></td>
         <td><a [routerLink]="['../leave', user.id]"><i class="glyphicon glyphicon-edit"></i></a></td>
     </tr>
 </table>

@@ -42,24 +42,30 @@ export class SearchComponent implements OnInit{
             console.log(this.searchForm);
             return;
         }
-        this.isLoading = true;
-        this._userService.getUsers().subscribe( result => {
-            this.isLoading = false;
-            this.isError = false;
-            this.userDetails = result;
-            this.resultCount = 76;
-            this.currentPage = 1;   
-        },
-        error => {
-            this.isError = true;
-            this.isLoading = false;
-            console.error("Service Error : " + error)
-        });
+        this.getUsers();
+    }
+
+    deleteUser(user){
+        if(confirm("Are you sure you want to delete " + user.name + "?")){
+            this.isLoading = true;
+            this._userService.deleteUser(user.id).subscribe(res=>{
+                this.isLoading = false;
+                var index = this.userDetails.indexOf(user);
+                this.userDetails.splice(index, 1);
+                this.getUsers();
+            }, err =>{
+                this.isLoading = false;
+                alert("Sorry! Could not delete user");
+            })
+        }
     }
 
     onPageChanged(page){
+        this.getUsers(page);
+    }
+
+    getUsers(page?){
         this.isLoading = true;
-        console.log("page no: " + page);
         this._userService.getUsers().subscribe( result => {
             this.isLoading = false;
             this.isError = false;
@@ -68,7 +74,7 @@ export class SearchComponent implements OnInit{
                 this.userDetails = this.userDetails.slice(0,6);
             }
             this.resultCount = 76;   
-            this.currentPage = page;
+            this.currentPage = (page)?page:1;
         },
         error => {
             this.isError = true;
