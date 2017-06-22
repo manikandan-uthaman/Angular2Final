@@ -9,3 +9,5 @@ How to use:
 * After this step, type 'npm start' in command prompt and press Enter.
 * This will start lite server in your system in the address localhost:3000
 * Open browser and type localhost:3000 and see the output.
+
+****Test comment for branch merge
